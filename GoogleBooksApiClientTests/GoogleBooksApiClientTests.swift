@@ -18,7 +18,7 @@ class GoogleBooksApiClientTests: XCTestCase {
     
     func testExample() {
         _ = client.invoke(
-            GoogleBooksApiRequests.GetVolume(id: Id("EFXMMgEACAAJ")),
+            GoogleBooksApi.VolumeRequest.Get(id: Id("EFXMMgEACAAJ")),
             onSuccess: { volume in
                 NSLog("\(volume)")
             },
@@ -27,7 +27,7 @@ class GoogleBooksApiClientTests: XCTestCase {
             }
         )
         _ = client.invoke(
-            GoogleBooksApiRequests.GetVolumes(query: "Google"),
+            GoogleBooksApi.VolumeRequest.List(query: "Google"),
             onSuccess: { volumes in
                 NSLog("\(volumes)")
             },
@@ -35,7 +35,7 @@ class GoogleBooksApiClientTests: XCTestCase {
                 NSLog("\(error)")
             }
         )
-        sleep(1)
+        sleep(2)
     }
     
 }

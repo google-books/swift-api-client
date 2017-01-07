@@ -34,52 +34,58 @@ extension GoogleBooksApiRequestType {
     
 }
 
-public struct GoogleBooksApiRequests {
+public struct GoogleBooksApi {
     
-    /// GET /volumes/{volume_id}
-    /// Retrieves a Volume resource based on ID.
-    public struct GetVolume: GoogleBooksApiRequest, GoogleBooksApiRequestType {
+    public struct VolumeRequest {
         
-        public typealias Result = Volume
-        private let id: Id<Volume>
-        
-        public init(id: Id<Volume>) {
-            self.id = id
+        // MARK: - Volume
+        /// GET /volumes/{volume_id}
+        /// Retrieves a Volume resource based on ID.
+        public struct Get: GoogleBooksApiRequest, GoogleBooksApiRequestType {
+            
+            public typealias Result = Volume
+            private let id: Id<Volume>
+            
+            public init(id: Id<Volume>) {
+                self.id = id
+            }
+            
+            var method: HttpMethod {
+                return .get
+            }
+            
+            var path: String {
+                return String(format: "/volumes/%@", id.value)
+            }
+            
         }
         
-        var method: HttpMethod {
-            return .get
-        }
-        
-        var path: String {
-            return String(format: "/volumes/%@", id.value)
+        /// GET /volumes?q={search_terms}
+        /// Performs a book search.
+        public struct List: GoogleBooksApiRequest, GoogleBooksApiRequestType {
+            
+            public typealias Result = Volumes
+            private let query: String
+            
+            public init(query: String) {
+                self.query = query
+            }
+            
+            var method: HttpMethod {
+                return .get
+            }
+            
+            var path: String {
+                return "/volumes"
+            }
+            
+            var params: [RequestParameter] {
+                return [("q", query)]
+            }
+            
         }
         
     }
     
-    /// GET /volumes?q={search_terms}
-    /// Performs a book search.
-    public struct GetVolumes: GoogleBooksApiRequest, GoogleBooksApiRequestType {
-
-        public typealias Result = Volumes
-        private let query: String
-        
-        public init(query: String) {
-            self.query = query
-        }
-        
-        var method: HttpMethod {
-            return .get
-        }
-        
-        var path: String {
-            return "/volumes"
-        }
-        
-        var params: [RequestParameter] {
-            return [("q", query)]
-        }
-        
-    }
     
 }
