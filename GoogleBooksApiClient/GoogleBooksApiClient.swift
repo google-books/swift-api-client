@@ -39,11 +39,11 @@ public class GoogleBooksApiClient {
                 case let .left(error):
                     onError(error)
                 case let .right((_, d)):
-                    guard let volume = GoogleBooksApiClient.deserialize(data: d, converter: B.create) else {
+                    guard let deserialized = GoogleBooksApiClient.deserialize(data: d, converter: B.create) else {
                         onError(GoogleBooksApiClientError.deserializationFailed(data: d))
                         return
                     }
-                    onSuccess(volume)
+                    onSuccess(deserialized)
                 }
             }
         )
