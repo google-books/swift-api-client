@@ -1,11 +1,5 @@
 import Foundation
 
-// constants
-private let BASE_URL: URL = URL(string: "https://www.googleapis.com/books/v1")!
-
-// typealiases
-public typealias VolumeId = String
-
 // errors
 public enum GoogleBooksApiClientError: Error {
     
