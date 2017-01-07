@@ -1,8 +1,26 @@
 import Foundation
 
-extension Volume {
+public protocol Deserializable {
     
-    static func create(_ dict: [AnyHashable:Any]) -> Volume? {
+    static func create(_ dict: [AnyHashable:Any]) -> Self?
+    
+}
+
+extension Volumes: Deserializable {
+    
+    public static func create(_ dict: [AnyHashable:Any]) -> Volumes? {
+        guard
+            let kind = dict["kind"] as? String, kind == BooksKind.volumes.description,
+            let items = dict["items"] as? [[AnyHashable:Any]]
+            else { return nil }
+        return Volumes(totalItems: dict["totalItems"] as? Int,items: items.flatMap(Volume.create))
+    }
+    
+}
+
+extension Volume: Deserializable {
+    
+    public static func create(_ dict: [AnyHashable:Any]) -> Volume? {
         guard
             let kind = dict["kind"] as? String, kind == BooksKind.volume.description,
             let id = dict["id"] as? String,
@@ -23,18 +41,6 @@ extension Volume {
             accessInfo: nil,
             searchInfo: nil
         )
-    }
-    
-}
-
-extension Sequence where Iterator.Element == Volume {
-    
-    static func create(_ dict: [AnyHashable:Any]) -> [Volume]? {
-        guard
-            let kind = dict["kind"] as? String, kind == BooksKind.volumes.description,
-            let items = dict["items"] as? [[AnyHashable:Any]]
-            else { return nil }
-        return items.flatMap(Volume.create)
     }
     
 }

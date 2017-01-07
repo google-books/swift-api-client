@@ -1,5 +1,13 @@
 import Foundation
 
+public struct Volumes {
+    
+    public let kind: BooksKind = BooksKind.volumes
+    public let totalItems: Int?
+    public let items: [Volume]
+    
+}
+
 /// Represents Volume resource
 /// https://developers.google.com/books/docs/v1/reference/volumes#resource
 public struct Volume: Entity {

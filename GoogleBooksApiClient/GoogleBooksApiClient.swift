@@ -22,43 +22,28 @@ public class GoogleBooksApiClient {
     public init(session: URLSession) {
         self.httpClient = HttpClient(session: session)
     }
-    
-    /// GET /volumes/{volume_id}
-    /// Retrieves a Volume resource based on ID.
-    public func getVolume(id: Id<Volume>, onSuccess: @escaping (Volume) -> Void, onError: @escaping (Error) -> Void) -> URLSessionDataTask {
-        return self.httpClient.get(
-            url: BASE_URL.appendingPathComponent(String(format: "/volumes/%@", id.value)),
+        
+    public func invoke<A: GoogleBooksApiRequest, B: Deserializable>(_ request: A, onSuccess: @escaping (B) -> Void, onError: @escaping (Error) -> Void) -> URLSessionDataTask
+    where A.Result == B {
+        guard let request = request as? GoogleBooksApiRequestType else {
+            onError(GoogleBooksApiClientError.unknown)
+            return URLSessionDataTask()
+        }
+        return httpClient.execute(
+            method: request.method,
+            url: request.url,
+            params: request.params,
+            headers: request.headers,
             completionHandler: { (data, response, error) in
                 switch GoogleBooksApiClient.getResponse(data: data, response: response, error: error) {
                 case let .left(error):
                     onError(error)
                 case let .right((_, d)):
-                    guard let volume = GoogleBooksApiClient.deserialize(data: d, converter: Volume.create) else {
+                    guard let volume = GoogleBooksApiClient.deserialize(data: d, converter: B.create) else {
                         onError(GoogleBooksApiClientError.deserializationFailed(data: d))
                         return
                     }
                     onSuccess(volume)
-                }
-            }
-        )
-    }
-    
-    /// GET /volumes?q={search_terms}
-    /// Performs a book search.
-    public func getVolumes(query: String, onSuccess: @escaping ([Volume]) -> Void, onError: @escaping (Error) -> Void) -> URLSessionDataTask {
-        return self.httpClient.get(
-            url: BASE_URL.appendingPathComponent("/volumes"),
-            params: [("q", query)],
-            completionHandler: { (data, response, error) in
-                switch GoogleBooksApiClient.getResponse(data: data, response: response, error: error) {
-                case let .left(error):
-                    onError(error)
-                case let .right((_, d)):
-                    guard let volumes = GoogleBooksApiClient.deserialize(data: d, converter: [Volume].create) else {
-                        onError(GoogleBooksApiClientError.deserializationFailed(data: d))
-                        return
-                    }
-                    onSuccess(volumes)
                 }
             }
         )
