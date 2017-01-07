@@ -17,10 +17,9 @@ class GoogleBooksApiClientTests: XCTestCase {
     }
     
     func testExample() {
-        _ = client.getVolume(
-            id: Id("EFXMMgEACAAJ"),
-            onSuccess: { volume in
-                NSLog("\(volume)")
+        _ = client.getVolumes(query: "google",
+            onSuccess: { volumes in
+                NSLog("\(volumes)")
             },
             onError: { error in
                 NSLog("\(error)")

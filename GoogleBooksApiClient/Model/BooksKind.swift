@@ -11,6 +11,7 @@ public protocol Kind {
 public enum BooksKind: String, ValueObject, Kind, CustomStringConvertible {
     
     case volume = "volume"
+    case volumes = "volumes"
     case bookshelf = "bookshelf"
     case downloadAccessRestriction = "downloadAccessRestriction"
     

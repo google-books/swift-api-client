@@ -27,6 +27,18 @@ extension Volume {
     
 }
 
+extension Sequence where Iterator.Element == Volume {
+    
+    static func create(_ dict: [AnyHashable:Any]) -> [Volume]? {
+        guard
+            let kind = dict["kind"] as? String, kind == BooksKind.volumes.description,
+            let items = dict["items"] as? [[AnyHashable:Any]]
+            else { return nil }
+        return items.flatMap(Volume.create)
+    }
+    
+}
+
 extension Volume.VolumeInfo {
     
     static func create(_ dict: [AnyHashable:Any]) -> Volume.VolumeInfo? {
