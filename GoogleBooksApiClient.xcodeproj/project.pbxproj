@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		FF6186031E215AA100938366 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6186021E215AA100938366 /* Either.swift */; };
 		FF6186081E21617800938366 /* GoogleBooksApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6186071E21617800938366 /* GoogleBooksApiRequest.swift */; };
+		FF61860A1E217D4400938366 /* BookshelfJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6186091E217D4400938366 /* BookshelfJson.swift */; };
+		FF61860C1E217D5500938366 /* Deserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF61860B1E217D5500938366 /* Deserializable.swift */; };
 		FF7FC5831E1FF94C009E5054 /* GoogleBooksApiClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF7FC5791E1FF94C009E5054 /* GoogleBooksApiClient.framework */; };
 		FF7FC5881E1FF94C009E5054 /* GoogleBooksApiClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7FC5871E1FF94C009E5054 /* GoogleBooksApiClientTests.swift */; };
 		FF7FC58A1E1FF94C009E5054 /* GoogleBooksApiClient.h in Headers */ = {isa = PBXBuildFile; fileRef = FF7FC57C1E1FF94C009E5054 /* GoogleBooksApiClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -37,6 +39,8 @@
 /* Begin PBXFileReference section */
 		FF6186021E215AA100938366 /* Either.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
 		FF6186071E21617800938366 /* GoogleBooksApiRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleBooksApiRequest.swift; sourceTree = "<group>"; };
+		FF6186091E217D4400938366 /* BookshelfJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookshelfJson.swift; sourceTree = "<group>"; };
+		FF61860B1E217D5500938366 /* Deserializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deserializable.swift; sourceTree = "<group>"; };
 		FF7FC5791E1FF94C009E5054 /* GoogleBooksApiClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleBooksApiClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF7FC57C1E1FF94C009E5054 /* GoogleBooksApiClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoogleBooksApiClient.h; sourceTree = "<group>"; };
 		FF7FC57D1E1FF94C009E5054 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 		FFFFF54E1E21124C000DCF47 /* Json */ = {
 			isa = PBXGroup;
 			children = (
+				FF6186091E217D4400938366 /* BookshelfJson.swift */,
+				FF61860B1E217D5500938366 /* Deserializable.swift */,
 				FFFFF54F1E21126C000DCF47 /* VolumeJson.swift */,
 			);
 			path = Json;
@@ -258,9 +264,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFC685B41E20017D00DDC778 /* Volume.swift in Sources */,
+				FF61860A1E217D4400938366 /* BookshelfJson.swift in Sources */,
 				FFC685C81E20BF2A00DDC778 /* DownloadAccess.swift in Sources */,
 				FFC685AF1E1FFA6E00DDC778 /* HttpClient.swift in Sources */,
 				FFC685AD1E1FFA4700DDC778 /* GoogleBooksApiClient.swift in Sources */,
+				FF61860C1E217D5500938366 /* Deserializable.swift in Sources */,
 				FFC685C01E20B6AE00DDC778 /* Bookshelf.swift in Sources */,
 				FFFFF5501E21126C000DCF47 /* VolumeJson.swift in Sources */,
 				FFC685C41E20B83D00DDC778 /* Entity.swift in Sources */,

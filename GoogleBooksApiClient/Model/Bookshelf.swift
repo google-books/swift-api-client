@@ -8,12 +8,18 @@ public struct Bookshelf: Entity {
     public let id: Id<Bookshelf>
     public let selfLink: URL
     public let title: String
-    public let desc: String
-    public let access: String
-    public let updated: Date
-    public let created: Date
+    public let desc: String?
+    public let access: Access
+    public let updated: String
+    public let created: String
     public let volumeCount: Int
-    public let volumesLastUpdated: Date
+    public let volumesLastUpdated: String?
+    
+    public enum Access: String, ValueObject {
+        
+        case `public` = "PUBLIC"
+        case `private` = "PRIVATE"
+    }
     
 }
 

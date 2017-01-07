@@ -35,6 +35,15 @@ class GoogleBooksApiClientTests: XCTestCase {
                 NSLog("\(error)")
             }
         )
+        _ = client.invoke(
+            GoogleBooksApi.BookshelfRequest.Get(id: Id("0"), userId: "113452853140207249483"),
+            onSuccess: { bookshelf in
+                NSLog("\(bookshelf)")
+            },
+            onError: { error in
+                NSLog("\(error)")
+            }
+        )
         sleep(2)
     }
     
