@@ -17,16 +17,14 @@ class GoogleBooksApiClientTests: XCTestCase {
     }
     
     func testExample() {
-        let _ = client.getVolume(
+        _ = client.getVolume(
             id: Id("EFXMMgEACAAJ"),
-            handler: (
-                { volume in
-                    NSLog("\(volume)")
-                },
-                { error in
-                    NSLog("\(error)")
-                }
-            )
+            onSuccess: { volume in
+                NSLog("\(volume)")
+            },
+            onError: { error in
+                NSLog("\(error)")
+            }
         )
         sleep(1)
     }

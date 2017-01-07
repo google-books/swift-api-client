@@ -18,8 +18,6 @@ public enum GoogleBooksApiClientError: Error {
 public class GoogleBooksApiClient {
     
     private let httpClient: HttpClient
-    public typealias ResponseHandler<T> = (onSuccess: (T) -> Void, onError: (Error) -> Void)
-
     
     public init(session: URLSession) {
         self.httpClient = HttpClient(session: session)
@@ -27,31 +25,29 @@ public class GoogleBooksApiClient {
     
     /// GET /volumes/{volume_id}
     /// Retrieves a Volume resource based on ID.
-    public func getVolume(id: Id<Volume>, handler: ResponseHandler<Volume>) -> URLSessionDataTask {
-        return httpClient.get(
+    public func getVolume(id: Id<Volume>, onSuccess: @escaping (Volume) -> Void, onError: @escaping (Error) -> Void) -> URLSessionDataTask {
+        return self.httpClient.get(
             url: BASE_URL.appendingPathComponent(String(format: "/volumes/%@", id.value)),
             completionHandler: { (data, response, error) in
-                let (onSucceed, onFailure) = handler
                 guard error == nil else {
-                    onFailure(error!)
+                    onError(error!)
                     return
                 }
                 guard let response = response, let data = data else {
-                    onFailure(GoogleBooksApiClientError.unknown)
+                    onError(GoogleBooksApiClientError.unknown)
                     return
                 }
-                
+            
                 if 200..<300 ~= response.statusCode {
                     guard let volume = GoogleBooksApiClient.deserialize(data: data, converter: Volume.create) else {
-                        onFailure(GoogleBooksApiClientError.deserializationFailed(data: data))
+                        onError(GoogleBooksApiClientError.deserializationFailed(data: data))
                         return
                     }
-                    onSucceed(volume)
+                    onSuccess(volume)
                 } else {
-                    onFailure(GoogleBooksApiClientError.httpRequestFailed(response: response, data: data))
+                    onError(GoogleBooksApiClientError.httpRequestFailed(response: response, data: data))
                 }
-            }
-        )
+        })
     }
     
     private static func deserialize<T>(data: Data, converter: ([AnyHashable:Any]) -> T?) -> T? {
