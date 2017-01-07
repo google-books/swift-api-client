@@ -1,0 +1,46 @@
+# Xcode (from gitignore.io)
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+
+# CocoaPod
+Pods/*
+
+# Carthage
+Carthage/Checkouts
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+Manga-iOS.app*
+
+# DOTENV
+fastlane/.env.test
+fastlane/.env.prod
+
+# bundler
+.bundle/
+vendor/
+
+# JetBrains
+.idea/
+
+# others
+*.swp
+!.gitkeep
+.DS_Store
