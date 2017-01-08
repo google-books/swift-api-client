@@ -62,7 +62,7 @@ class GoogleBooksApiClientTests: XCTestCase {
                 NSLog("\(error)")
             }
         )
-        sleep(2)
+        sleep(4)
     }
     
 }

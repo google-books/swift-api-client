@@ -23,11 +23,13 @@ public class GoogleBooksApiClient {
             onError(GoogleBooksApiClientError.unknown)
             return URLSessionDataTask()
         }
+        let apiKeyParam: [RequestParameter] = request.authInfo?.apiKey.map({[("key", $0)]}) ?? []
+        let authorizationHeader: [RequestHeader] = request.authInfo?.authToken.map({[("Authorization", "Bearer " + $0)]}) ?? []
         return httpClient.execute(
             method: request.method,
             url: request.url,
-            params: request.params,
-            headers: request.headers,
+            params: request.params + apiKeyParam,
+            headers: request.headers + authorizationHeader,
             completionHandler: { (data, response, error) in
                 switch GoogleBooksApiClient.getResponse(data: data, response: response, error: error) {
                 case let .left(error):

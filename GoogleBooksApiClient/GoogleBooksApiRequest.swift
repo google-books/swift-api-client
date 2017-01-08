@@ -2,9 +2,6 @@ import Foundation
 
 private let BASE_URL: URL = URL(string: "https://www.googleapis.com/books/v1")!
 
-public typealias GoogleBooksAPIKey = String
-public typealias GoogleBooksAPIAuthToken = String
-
 public protocol GoogleBooksApiRequest {
     
     associatedtype Result
@@ -18,6 +15,7 @@ protocol GoogleBooksApiRequestType {
     var url: URL { get }
     var params: [RequestParameter] { get }
     var headers: [RequestHeader] { get }
+    var authInfo: GoogleBooksApiAuthInfo? { get }
     
 }
 
@@ -49,10 +47,12 @@ public struct GoogleBooksApi {
             public typealias Result = Bookshelf
             private let id: BookshelfId
             private let userId: String
+            let authInfo: GoogleBooksApiAuthInfo?
             
-            public init(id: BookshelfId, userId: String) {
+            public init(id: BookshelfId, userId: String, authInfo: GoogleBooksApiAuthInfo? = nil) {
                 self.id = id
                 self.userId = userId
+                self.authInfo = authInfo
             }
             
             var method: HttpMethod {
@@ -71,9 +71,11 @@ public struct GoogleBooksApi {
             
             public typealias Result = Bookshelves
             private let userId: String
+            let authInfo: GoogleBooksApiAuthInfo?
             
-            public init(userId: String) {
+            public init(userId: String, authInfo: GoogleBooksApiAuthInfo? = nil) {
                 self.userId = userId
+                self.authInfo = authInfo
             }
             
             var method: HttpMethod {
@@ -97,9 +99,11 @@ public struct GoogleBooksApi {
             
             public typealias Result = Volume
             private let id: Id<Volume>
+            let authInfo: GoogleBooksApiAuthInfo?
             
-            public init(id: Id<Volume>) {
+            public init(id: Id<Volume>, authInfo: GoogleBooksApiAuthInfo? = nil) {
                 self.id = id
+                self.authInfo = authInfo
             }
             
             var method: HttpMethod {
@@ -118,9 +122,11 @@ public struct GoogleBooksApi {
             
             public typealias Result = Volumes
             private let query: String
+            let authInfo: GoogleBooksApiAuthInfo?
             
-            public init(query: String) {
+            public init(query: String, authInfo: GoogleBooksApiAuthInfo? = nil) {
                 self.query = query
+                self.authInfo = authInfo
             }
             
             var method: HttpMethod {
@@ -149,10 +155,12 @@ public struct GoogleBooksApi {
             public typealias Result = Volumes
             private let userId: String
             private let shelf: BookshelfId
+            let authInfo: GoogleBooksApiAuthInfo?
             
-            public init(userId: String, shelf: BookshelfId) {
+            public init(userId: String, shelf: BookshelfId, authInfo: GoogleBooksApiAuthInfo? = nil) {
                 self.userId = userId
                 self.shelf = shelf
+                self.authInfo = authInfo
             }
             
             var method: HttpMethod {
@@ -176,13 +184,11 @@ public struct GoogleBooksApi {
             
             public typealias Result = Bookshelf
             private let shelf: BookshelfId
-            private let authToken: GoogleBooksAPIAuthToken?
-            private let apiKey: GoogleBooksAPIKey?
+            let authInfo: GoogleBooksApiAuthInfo?
             
-            public init(shelf: BookshelfId, authToken: GoogleBooksAPIAuthToken?, apiKey: GoogleBooksAPIKey?) {
+            public init(shelf: BookshelfId, authInfo: GoogleBooksApiAuthInfo?) {
                 self.shelf = shelf
-                self.authToken = authToken
-                self.apiKey = apiKey
+                self.authInfo = authInfo
             }
             
             var method: HttpMethod {
@@ -191,14 +197,6 @@ public struct GoogleBooksApi {
             
             var path: String {
                 return String(format: "/mylibrary/bookshelves/%@", shelf.rawValue)
-            }
-            
-            var params: [RequestParameter] {
-                return apiKey.map({[("key", $0)]}) ?? []
-            }
-            
-            var headers: [RequestHeader] {
-                return authToken.map({[("Authorization", "Bearer " + $0)]}) ?? []
             }
             
         }

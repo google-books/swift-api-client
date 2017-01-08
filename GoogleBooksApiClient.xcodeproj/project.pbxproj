@@ -11,6 +11,7 @@
 		FF6186081E21617800938366 /* GoogleBooksApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6186071E21617800938366 /* GoogleBooksApiRequest.swift */; };
 		FF61860A1E217D4400938366 /* BookshelfJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6186091E217D4400938366 /* BookshelfJson.swift */; };
 		FF61860C1E217D5500938366 /* Deserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF61860B1E217D5500938366 /* Deserializable.swift */; };
+		FF61860E1E22A3B400938366 /* GoogleBooksApiAuthInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF61860D1E22A3B400938366 /* GoogleBooksApiAuthInfo.swift */; };
 		FF7FC5831E1FF94C009E5054 /* GoogleBooksApiClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF7FC5791E1FF94C009E5054 /* GoogleBooksApiClient.framework */; };
 		FF7FC5881E1FF94C009E5054 /* GoogleBooksApiClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7FC5871E1FF94C009E5054 /* GoogleBooksApiClientTests.swift */; };
 		FF7FC58A1E1FF94C009E5054 /* GoogleBooksApiClient.h in Headers */ = {isa = PBXBuildFile; fileRef = FF7FC57C1E1FF94C009E5054 /* GoogleBooksApiClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -41,6 +42,7 @@
 		FF6186071E21617800938366 /* GoogleBooksApiRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleBooksApiRequest.swift; sourceTree = "<group>"; };
 		FF6186091E217D4400938366 /* BookshelfJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookshelfJson.swift; sourceTree = "<group>"; };
 		FF61860B1E217D5500938366 /* Deserializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deserializable.swift; sourceTree = "<group>"; };
+		FF61860D1E22A3B400938366 /* GoogleBooksApiAuthInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleBooksApiAuthInfo.swift; sourceTree = "<group>"; };
 		FF7FC5791E1FF94C009E5054 /* GoogleBooksApiClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleBooksApiClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF7FC57C1E1FF94C009E5054 /* GoogleBooksApiClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoogleBooksApiClient.h; sourceTree = "<group>"; };
 		FF7FC57D1E1FF94C009E5054 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				FFFFF54E1E21124C000DCF47 /* Json */,
 				FFC685B21E20016D00DDC778 /* Model */,
 				FF6186011E215A8A00938366 /* Util */,
+				FF61860D1E22A3B400938366 /* GoogleBooksApiAuthInfo.swift */,
 				FF7FC57C1E1FF94C009E5054 /* GoogleBooksApiClient.h */,
 				FFC685AC1E1FFA4700DDC778 /* GoogleBooksApiClient.swift */,
 				FF6186071E21617800938366 /* GoogleBooksApiRequest.swift */,
@@ -274,6 +277,7 @@
 				FFC685C41E20B83D00DDC778 /* Entity.swift in Sources */,
 				FF6186031E215AA100938366 /* Either.swift in Sources */,
 				FFFFF54D1E20E130000DCF47 /* ValueObject.swift in Sources */,
+				FF61860E1E22A3B400938366 /* GoogleBooksApiAuthInfo.swift in Sources */,
 				FFC685B61E20031900DDC778 /* BooksKind.swift in Sources */,
 				FFC685C21E20B71700DDC778 /* Id.swift in Sources */,
 				FF6186081E21617800938366 /* GoogleBooksApiRequest.swift in Sources */,
