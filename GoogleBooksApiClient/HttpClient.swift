@@ -6,10 +6,9 @@ typealias RequestHeader = (key: String, value: String)
 enum HttpMethod: String {
     case get = "GET"
     case post = "POST"
-    case put = "PUT"
 }
 
-class HttpClient {
+final class HttpClient {
     
     private let session: URLSession
     
