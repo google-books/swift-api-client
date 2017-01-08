@@ -339,4 +339,32 @@ public struct GoogleBooksApi {
         
     }
     
+    // MARK: - MyLibrary.Bookshelves.Volumes
+    public struct MylibraryBookshelvesVolumesRequest {
+        
+        /// GET  /mylibrary/bookshelves/{shelf}/volumes
+        /// Gets volume information for volumes on a bookshelf.
+        public struct List: GoogleBooksApiRequest, GoogleBooksApiRequestType {
+            
+            public typealias Result = Volumes
+            private let shelf: BookshelfId
+            let authInfo: GoogleBooksApiAuthInfo?
+            
+            public init(shelf: BookshelfId, authInfo: GoogleBooksApiAuthInfo) {
+                self.shelf = shelf
+                self.authInfo = authInfo
+            }
+            
+            var method: HttpMethod {
+                return .get
+            }
+            
+            var path: String {
+                return String(format: "/mylibrary/bookshelves/%@/volumes", shelf.rawValue)
+            }
+            
+        }
+        
+    }
+    
 }
