@@ -37,8 +37,12 @@ extension GoogleBooksApiRequestType {
 
 public struct GoogleBooksApi {
 
+    private init() {}
+
     // MARK: - Bookshelf
     public struct BookshelfRequest {
+        
+        private init() {}
         
         /// GET /users/{user_id}/bookshelves/{bookshelf_id}
         /// Retrieves a specific Bookshelf resource for the specified user.
@@ -92,6 +96,8 @@ public struct GoogleBooksApi {
 
     // MARK: - Volume
     public struct VolumeRequest {
+        
+        private init() {}
         
         /// GET /volumes/{volume_id}
         /// Retrieves a Volume resource based on ID.
@@ -148,6 +154,8 @@ public struct GoogleBooksApi {
     // MARK: - Bookshelves.Volumes
     public struct BookshelvesVolumesRequest {
         
+        private init() {}
+        
         /// GET  /users/{userId}/bookshelves/{shelf}/volumes
         /// Retrieves volumes in a specific bookshelf for the specified user.
         public struct List: GoogleBooksApiRequest, GoogleBooksApiRequestType {
@@ -177,6 +185,8 @@ public struct GoogleBooksApi {
     
     // MARK: - MyLibrary.Bookshelves
     public struct MyLibraryBookshelvesRequest {
+        
+        private init() {}
         
         /// POST  /mylibrary/bookshelves/{shelf}/addVolume
         /// Adds a volume to a bookshelf.
@@ -341,6 +351,8 @@ public struct GoogleBooksApi {
     
     // MARK: - MyLibrary.Bookshelves.Volumes
     public struct MylibraryBookshelvesVolumesRequest {
+        
+        private init() {}
         
         /// GET  /mylibrary/bookshelves/{shelf}/volumes
         /// Gets volume information for volumes on a bookshelf.
