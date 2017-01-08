@@ -207,6 +207,29 @@ public struct GoogleBooksApi {
             
         }
         
+        /// POST  /mylibrary/bookshelves/{shelf}/clearVolumes
+        /// Clears all volumes from a bookshelf.
+        public struct ClearVolumes: GoogleBooksApiRequest, GoogleBooksApiRequestType {
+            
+            public typealias Result = Bool
+            private let shelf: BookshelfId
+            let authInfo: GoogleBooksApiAuthInfo?
+            
+            public init(shelf: BookshelfId, authInfo: GoogleBooksApiAuthInfo) {
+                self.shelf = shelf
+                self.authInfo = authInfo
+            }
+            
+            var method: HttpMethod {
+                return .post
+            }
+            
+            var path: String {
+                return String(format: "/mylibrary/bookshelves/%@/clearVolumes", shelf.rawValue)
+            }
+            
+        }
+        
         /// GET  /mylibrary/bookshelves/{shelf}
         /// Retrieves metadata for a specific bookshelf belonging to the authenticated user.
         public struct Get: GoogleBooksApiRequest, GoogleBooksApiRequestType {
