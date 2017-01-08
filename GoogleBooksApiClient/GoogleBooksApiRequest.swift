@@ -35,10 +35,12 @@ extension GoogleBooksApiRequestType {
 }
 
 public struct GoogleBooksApi {
-    
+
+    // MARK: - Bookshelf
     public struct BookshelfRequest {
         
-        // MARK: - Bookshelf
+        /// GET /users/{user_id}/bookshelves/{bookshelf_id}
+        /// Retrieves a specific Bookshelf resource for the specified user.
         public struct Get: GoogleBooksApiRequest, GoogleBooksApiRequestType {
             
             public typealias Result = Bookshelf
@@ -59,12 +61,33 @@ public struct GoogleBooksApi {
             }
             
         }
+        
+        /// GET /users/{user_id}/bookshelves
+        /// Retrieves a list of public Bookshelf resource for the specified user.
+        public struct List: GoogleBooksApiRequest, GoogleBooksApiRequestType {
+            
+            public typealias Result = Bookshelves
+            private let userId: String
+            
+            public init(userId: String) {
+                self.userId = userId
+            }
+            
+            var method: HttpMethod {
+                return .get
+            }
+            
+            var path: String {
+                return String(format: "/users/%@/bookshelves", userId)
+            }
+            
+        }
 
     }
-    
+
+    // MARK: - Volume
     public struct VolumeRequest {
         
-        // MARK: - Volume
         /// GET /volumes/{volume_id}
         /// Retrieves a Volume resource based on ID.
         public struct Get: GoogleBooksApiRequest, GoogleBooksApiRequestType {

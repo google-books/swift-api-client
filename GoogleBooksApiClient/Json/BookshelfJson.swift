@@ -1,5 +1,17 @@
 import Foundation
 
+extension Bookshelves: Deserializable {
+    
+    public static func create(_ dict: [AnyHashable:Any]) -> Bookshelves? {
+        guard
+            let kind = dict["kind"] as? String, kind == BooksKind.bookshelves.description,
+            let items = dict["items"] as? [[AnyHashable:Any]]
+            else { return nil }
+        return Bookshelves(items: items.flatMap(Bookshelf.create))
+    }
+    
+}
+
 extension Bookshelf: Deserializable {
     
     public static func create(_ dict: [AnyHashable:Any]) -> Bookshelf? {

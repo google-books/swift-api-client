@@ -1,5 +1,12 @@
 import Foundation
 
+public struct Bookshelves {
+    
+    public let kind: BooksKind = BooksKind.bookshelves
+    public let items: [Bookshelf]
+    
+}
+
 /// Represents Bookshelf resource
 /// https://developers.google.com/books/docs/v1/reference/bookshelves#resource
 public struct Bookshelf: Entity {
