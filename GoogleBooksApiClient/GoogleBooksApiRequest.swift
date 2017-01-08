@@ -308,6 +308,35 @@ public struct GoogleBooksApi {
             
         }
         
+        /// POST  /mylibrary/bookshelves/shelf/removeVolume
+        /// Removes a volume from a bookshelf.
+        public struct RemoveVolume: GoogleBooksApiRequest, GoogleBooksApiRequestType {
+            
+            public typealias Result = Bool
+            private let shelf: BookshelfId
+            private let volumeId: Id<Volume>
+            let authInfo: GoogleBooksApiAuthInfo?
+            
+            public init(shelf: BookshelfId, volumeId: Id<Volume>, authInfo: GoogleBooksApiAuthInfo) {
+                self.shelf = shelf
+                self.volumeId = volumeId
+                self.authInfo = authInfo
+            }
+            
+            var method: HttpMethod {
+                return .post
+            }
+            
+            var path: String {
+                return String(format: "/mylibrary/bookshelves/%@/removeVolume", shelf.rawValue)
+            }
+            
+            var params: [RequestParameter] {
+                return [("volumeId", volumeId.value)]
+            }
+            
+        }
+        
     }
     
 }
