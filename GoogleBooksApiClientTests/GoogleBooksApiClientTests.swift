@@ -48,10 +48,19 @@ class GoogleBooksApiClientTests: XCTestCase {
             GoogleBooksApi.BookshelfRequest.List(userId: "113452853140207249483"),
             onSuccess: { bookshelves in
                 NSLog("\(bookshelves)")
-        },
+            },
             onError: { error in
                 NSLog("\(error)")
-        }
+            }
+        )
+        _ = client.invoke(
+            GoogleBooksApi.BookshelvesVolumesRequest.List(userId: "113452853140207249483", shelf: Id("0")),
+            onSuccess: { volumes in
+                NSLog("\(volumes)")
+            },
+            onError: { error in
+                NSLog("\(error)")
+            }
         )
         sleep(2)
     }

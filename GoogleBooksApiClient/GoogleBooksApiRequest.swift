@@ -136,5 +136,32 @@ public struct GoogleBooksApi {
         
     }
     
+    // MARK: - Bookshelves.Volumes
+    public struct BookshelvesVolumesRequest {
+        
+        /// GET  /users/{userId}/bookshelves/{shelf}/volumes
+        /// Retrieves volumes in a specific bookshelf for the specified user.
+        public struct List: GoogleBooksApiRequest, GoogleBooksApiRequestType {
+            
+            public typealias Result = Volumes
+            private let userId: String
+            private let shelf: Id<Bookshelf>
+            
+            public init(userId: String, shelf: Id<Bookshelf>) {
+                self.userId = userId
+                self.shelf = shelf
+            }
+            
+            var method: HttpMethod {
+                return .get
+            }
+            
+            var path: String {
+                return String(format: "/users/%@/bookshelves/%@/volumes", userId, shelf.value)
+            }
+            
+        }
+        
+    }
     
 }
