@@ -2,6 +2,9 @@ import Foundation
 
 private let BASE_URL: URL = URL(string: "https://www.googleapis.com/books/v1")!
 
+public typealias GoogleBooksAPIKey = String
+public typealias GoogleBooksAPIAuthToken = String
+
 public protocol GoogleBooksApiRequest {
     
     associatedtype Result
@@ -158,6 +161,44 @@ public struct GoogleBooksApi {
             
             var path: String {
                 return String(format: "/users/%@/bookshelves/%@/volumes", userId, shelf.rawValue)
+            }
+            
+        }
+        
+    }
+    
+    // MARK: - MyLibrary.Bookshelves
+    public struct MyLibraryBookshelvesRequest {
+        
+        /// GET  /mylibrary/bookshelves/{shelf}
+        /// Retrieves metadata for a specific bookshelf belonging to the authenticated user.
+        public struct Get: GoogleBooksApiRequest, GoogleBooksApiRequestType {
+            
+            public typealias Result = Bookshelf
+            private let shelf: BookshelfId
+            private let authToken: GoogleBooksAPIAuthToken?
+            private let apiKey: GoogleBooksAPIKey?
+            
+            public init(shelf: BookshelfId, authToken: GoogleBooksAPIAuthToken?, apiKey: GoogleBooksAPIKey?) {
+                self.shelf = shelf
+                self.authToken = authToken
+                self.apiKey = apiKey
+            }
+            
+            var method: HttpMethod {
+                return .get
+            }
+            
+            var path: String {
+                return String(format: "/mylibrary/bookshelves/%@", shelf.rawValue)
+            }
+            
+            var params: [RequestParameter] {
+                return apiKey.map({[("key", $0)]}) ?? []
+            }
+            
+            var headers: [RequestHeader] {
+                return authToken.map({[("Authorization", "Bearer " + $0)]}) ?? []
             }
             
         }
