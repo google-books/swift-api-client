@@ -274,6 +274,40 @@ public struct GoogleBooksApi {
             
         }
         
+        /// POST  /mylibrary/bookshelves/shelf/moveVolume
+        /// Moves a volume within a bookshelf.
+        public struct MoveVolume: GoogleBooksApiRequest, GoogleBooksApiRequestType {
+            
+            public typealias Result = Bool
+            private let shelf: BookshelfId
+            private let volumeId: Id<Volume>
+            private let volumePosition: Int
+            let authInfo: GoogleBooksApiAuthInfo?
+            
+            public init(shelf: BookshelfId, volumeId: Id<Volume>, volumePosition: Int, authInfo: GoogleBooksApiAuthInfo) {
+                self.shelf = shelf
+                self.volumeId = volumeId
+                self.volumePosition = volumePosition
+                self.authInfo = authInfo
+            }
+            
+            var method: HttpMethod {
+                return .post
+            }
+            
+            var path: String {
+                return String(format: "/mylibrary/bookshelves/%@/moveVolume", shelf.rawValue)
+            }
+            
+            var params: [RequestParameter] {
+                return [
+                    ("volumeId", volumeId.value),
+                    ("volumePosition", String(volumePosition))
+                ]
+            }
+            
+        }
+        
     }
     
 }
