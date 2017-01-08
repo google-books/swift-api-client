@@ -9,27 +9,46 @@ public enum GoogleBooksApiClientError: Error {
     
 }
 
-public class GoogleBooksApiClient {
+public final class GoogleBooksApiClient {
     
     private let httpClient: HttpClient
     
     public init(session: URLSession) {
         self.httpClient = HttpClient(session: session)
     }
-        
+    
+    public func invoke<A: GoogleBooksApiRequest>(_ request: A, onSuccess: @escaping (Bool) -> Void, onError: @escaping (Error) -> Void) -> URLSessionDataTask
+    where A.Result == Bool {
+        guard let request = request as? GoogleBooksApiRequestType else {
+            onError(GoogleBooksApiClientError.unknown)
+            return URLSessionDataTask()
+        }
+        return httpClient.execute(
+            method: request.method,
+            url: request.url,
+            params: GoogleBooksApiClient.getParams(params: request.params, authInfo: request.authInfo),
+            headers: GoogleBooksApiClient.getHeaders(headers: request.headers, authInfo: request.authInfo),
+            completionHandler: { (data, response, error) in
+                switch GoogleBooksApiClient.getResponse(data: data, response: response, error: error) {
+                case let .left(error): onError(error)
+                case .right(_): onSuccess(true)
+                }
+            }
+        )
+    }
+
+    
     public func invoke<A: GoogleBooksApiRequest, B: Deserializable>(_ request: A, onSuccess: @escaping (B) -> Void, onError: @escaping (Error) -> Void) -> URLSessionDataTask
     where A.Result == B {
         guard let request = request as? GoogleBooksApiRequestType else {
             onError(GoogleBooksApiClientError.unknown)
             return URLSessionDataTask()
         }
-        let apiKeyParam: [RequestParameter] = request.authInfo?.apiKey.map({[("key", $0)]}) ?? []
-        let authorizationHeader: [RequestHeader] = request.authInfo?.authToken.map({[("Authorization", "Bearer " + $0)]}) ?? []
         return httpClient.execute(
             method: request.method,
             url: request.url,
-            params: request.params + apiKeyParam,
-            headers: request.headers + authorizationHeader,
+            params: GoogleBooksApiClient.getParams(params: request.params, authInfo: request.authInfo),
+            headers: GoogleBooksApiClient.getHeaders(headers: request.headers, authInfo: request.authInfo),
             completionHandler: { (data, response, error) in
                 switch GoogleBooksApiClient.getResponse(data: data, response: response, error: error) {
                 case let .left(error):
@@ -43,6 +62,16 @@ public class GoogleBooksApiClient {
                 }
             }
         )
+    }
+    
+    private static func getParams(params: [RequestParameter], authInfo: GoogleBooksApiAuthInfo?) -> [RequestParameter] {
+        let apiKeyParam: [RequestParameter] = authInfo?.apiKey.map({[("key", $0)]}) ?? []
+        return params + apiKeyParam
+    }
+    
+    private static func getHeaders(headers: [RequestHeader], authInfo: GoogleBooksApiAuthInfo?) -> [RequestHeader] {
+        let authorizationHeader: [RequestHeader] = authInfo?.authToken.map({[("Authorization", "Bearer " + $0)]}) ?? []
+        return headers + authorizationHeader
     }
     
     private static func getResponse(data: Data?, response: HTTPURLResponse?, error: Error?) -> Either<Error, (HTTPURLResponse, Data)> {

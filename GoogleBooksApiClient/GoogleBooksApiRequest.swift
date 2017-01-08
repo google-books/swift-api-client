@@ -178,6 +178,35 @@ public struct GoogleBooksApi {
     // MARK: - MyLibrary.Bookshelves
     public struct MyLibraryBookshelvesRequest {
         
+        /// POST  /mylibrary/bookshelves/{shelf}/addVolume
+        /// Adds a volume to a bookshelf.
+        public struct AddVolume: GoogleBooksApiRequest, GoogleBooksApiRequestType {
+            
+            public typealias Result = Bool
+            private let shelf: BookshelfId
+            private let volumeId: Id<Volume>
+            let authInfo: GoogleBooksApiAuthInfo?
+            
+            public init(shelf: BookshelfId, volumeId: Id<Volume>, authInfo: GoogleBooksApiAuthInfo) {
+                self.shelf = shelf
+                self.volumeId = volumeId
+                self.authInfo = authInfo
+            }
+            
+            var method: HttpMethod {
+                return .post
+            }
+            
+            var path: String {
+                return String(format: "/mylibrary/bookshelves/%@/addVolume", shelf.rawValue)
+            }
+            
+            var params: [RequestParameter] {
+                return [("volumeId", volumeId.value)]
+            }
+            
+        }
+        
         /// GET  /mylibrary/bookshelves/{shelf}
         /// Retrieves metadata for a specific bookshelf belonging to the authenticated user.
         public struct Get: GoogleBooksApiRequest, GoogleBooksApiRequestType {

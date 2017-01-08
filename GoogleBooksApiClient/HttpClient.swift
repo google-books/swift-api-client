@@ -21,6 +21,7 @@ class HttpClient {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         components?.queryItems = params?.map({ URLQueryItem(name: $0.key, value: $0.value) })
         var request = components?.url.map({ URLRequest(url: $0) })
+        request?.httpMethod = method.rawValue
         for (key, value) in headers ?? [] {
             request?.setValue(value, forHTTPHeaderField: key)
         }
