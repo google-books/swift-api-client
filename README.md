@@ -6,7 +6,41 @@
 
 The Google Books API Client Library for Swift
 
-# Usage
+## Installation
+
+The supported options:
+
+### CocoaPods
+
+Add this to Podfile
+
+```
+# Podfile
+use_frameworks!
+
+target 'YOUR_TARGET_NAME' do
+    pod 'GoogleBooksApiClient'
+end
+```
+
+```
+$ pod install
+```
+
+### Carthage
+
+Add this to Cartfile
+
+```
+github "google-books/swift-api-client"
+```
+
+```
+$ carthage update
+```
+
+
+## How to use
 
 The library makes it simple to call Google Books APIs.
 
@@ -17,8 +51,8 @@ let session = URLSession.shared
 let client = GoogleBooksApiClient(session: session)
 ```
 
-## Volume
-### list
+### Volume
+#### list
 
 ```swift
 let req = GoogleBooksApi.VolumeRequest.List(query: "Google")
@@ -29,8 +63,8 @@ let task: URLSessionDataTask = client.invoke(
 )
 ```
 
-## Mylibraly.Bookshlves
-### addVolume
+### Mylibraly.Bookshlves
+#### addVolume
 
 ```swift
 let authInfo = GoogleBooksApiAuthInfo(apiKey: nil, authToken: "YOUR_AUTH_TOKEN")
@@ -45,3 +79,7 @@ let task: URLSessionDataTask = client.invoke(
     onError: { error in NSLog("\(error)") }
 )
 ```
+
+# License
+
+MIT
