@@ -186,7 +186,7 @@ public struct GoogleBooksApi {
             private let shelf: BookshelfId
             let authInfo: GoogleBooksApiAuthInfo?
             
-            public init(shelf: BookshelfId, authInfo: GoogleBooksApiAuthInfo?) {
+            public init(shelf: BookshelfId, authInfo: GoogleBooksApiAuthInfo) {
                 self.shelf = shelf
                 self.authInfo = authInfo
             }
@@ -197,6 +197,27 @@ public struct GoogleBooksApi {
             
             var path: String {
                 return String(format: "/mylibrary/bookshelves/%@", shelf.rawValue)
+            }
+            
+        }
+        
+        /// GET  /mylibrary/bookshelves
+        /// Retrieves a list of bookshelves belonging to the authenticated user.
+        public struct List: GoogleBooksApiRequest, GoogleBooksApiRequestType {
+            
+            public typealias Result = Bookshelves
+            let authInfo: GoogleBooksApiAuthInfo?
+            
+            public init(authInfo: GoogleBooksApiAuthInfo) {
+                self.authInfo = authInfo
+            }
+            
+            var method: HttpMethod {
+                return .get
+            }
+            
+            var path: String {
+                return "/mylibrary/bookshelves"
             }
             
         }
