@@ -17,7 +17,7 @@ extension Bookshelf: Deserializable {
     public static func create(_ dict: [AnyHashable:Any]) -> Bookshelf? {
         guard
             let kind = dict["kind"] as? String, kind == BooksKind.bookshelf.description,
-            let id = dict["id"] as? Int,
+            let idInt = dict["id"] as? Int, let id = BookshelfId(rawValue: String(idInt)),
             let selfLinkString = dict["selfLink"] as? String, let selfLink = URL(string: selfLinkString),
             let title = dict["title"] as? String,
             let accessString = dict["access"] as? String, let access = Bookshelf.Access(rawValue: accessString),
@@ -28,7 +28,7 @@ extension Bookshelf: Deserializable {
         let desc = dict["description"] as? String
         let volumesLastUpdated = dict["volumesLastUpdated"] as? String
         return Bookshelf(
-            id: Id(String(id)),
+            id: id,
             selfLink: selfLink,
             title: title,
             desc: desc,

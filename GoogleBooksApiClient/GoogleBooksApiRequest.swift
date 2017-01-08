@@ -44,10 +44,10 @@ public struct GoogleBooksApi {
         public struct Get: GoogleBooksApiRequest, GoogleBooksApiRequestType {
             
             public typealias Result = Bookshelf
-            private let id: Id<Bookshelf>
+            private let id: BookshelfId
             private let userId: String
             
-            public init(id: Id<Bookshelf>, userId: String) {
+            public init(id: BookshelfId, userId: String) {
                 self.id = id
                 self.userId = userId
             }
@@ -57,7 +57,7 @@ public struct GoogleBooksApi {
             }
             
             var path: String {
-                return String(format: "/users/%@/bookshelves/%@", userId, id.value)
+                return String(format: "/users/%@/bookshelves/%@", userId, id.rawValue)
             }
             
         }
@@ -145,9 +145,9 @@ public struct GoogleBooksApi {
             
             public typealias Result = Volumes
             private let userId: String
-            private let shelf: Id<Bookshelf>
+            private let shelf: BookshelfId
             
-            public init(userId: String, shelf: Id<Bookshelf>) {
+            public init(userId: String, shelf: BookshelfId) {
                 self.userId = userId
                 self.shelf = shelf
             }
@@ -157,7 +157,7 @@ public struct GoogleBooksApi {
             }
             
             var path: String {
-                return String(format: "/users/%@/bookshelves/%@/volumes", userId, shelf.value)
+                return String(format: "/users/%@/bookshelves/%@/volumes", userId, shelf.rawValue)
             }
             
         }

@@ -36,7 +36,7 @@ class GoogleBooksApiClientTests: XCTestCase {
             }
         )
         _ = client.invoke(
-            GoogleBooksApi.BookshelfRequest.Get(id: Id("0"), userId: "113452853140207249483"),
+            GoogleBooksApi.BookshelfRequest.Get(id: BookshelfId.favorites, userId: "113452853140207249483"),
             onSuccess: { bookshelf in
                 NSLog("\(bookshelf)")
             },
@@ -54,7 +54,7 @@ class GoogleBooksApiClientTests: XCTestCase {
             }
         )
         _ = client.invoke(
-            GoogleBooksApi.BookshelvesVolumesRequest.List(userId: "113452853140207249483", shelf: Id("0")),
+            GoogleBooksApi.BookshelvesVolumesRequest.List(userId: "113452853140207249483", shelf: BookshelfId.favorites),
             onSuccess: { volumes in
                 NSLog("\(volumes)")
             },

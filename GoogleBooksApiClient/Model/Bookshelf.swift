@@ -1,5 +1,21 @@
 import Foundation
 
+/// Represents Bookshelf Id
+/// https://developers.google.com/books/docs/v1/using#ids
+public enum BookshelfId: String {
+    
+    case favorites = "0"
+    case purchased = "1"
+    case toRead = "2"
+    case readingNow = "3"
+    case haveRead = "4"
+    case reviewed = "5"
+    case recentlyViewed = "6"
+    case myEbooks = "7"
+    case booksForYou = "8"
+    
+}
+
 public struct Bookshelves {
     
     public let kind: BooksKind = BooksKind.bookshelves
@@ -12,7 +28,7 @@ public struct Bookshelves {
 public struct Bookshelf: Entity {
     
     public let kind: BooksKind = BooksKind.bookshelf
-    public let id: Id<Bookshelf>
+    public let id: BookshelfId
     public let selfLink: URL
     public let title: String
     public let desc: String?
