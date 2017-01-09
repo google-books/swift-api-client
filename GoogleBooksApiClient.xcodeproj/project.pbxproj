@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FF4A72831E237CA400BCA722 /* GoogleApiToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4A72821E237CA400BCA722 /* GoogleApiToken.swift */; };
+		FF4A72AB1E23C1FA00BCA722 /* URLRequestExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4A72AA1E23C1FA00BCA722 /* URLRequestExt.swift */; };
 		FF6186031E215AA100938366 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6186021E215AA100938366 /* Either.swift */; };
 		FF6186081E21617800938366 /* GoogleBooksApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6186071E21617800938366 /* GoogleBooksApiRequest.swift */; };
 		FF61860A1E217D4400938366 /* BookshelfJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6186091E217D4400938366 /* BookshelfJson.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		FF4A72821E237CA400BCA722 /* GoogleApiToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleApiToken.swift; sourceTree = "<group>"; };
+		FF4A72AA1E23C1FA00BCA722 /* URLRequestExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestExt.swift; sourceTree = "<group>"; };
 		FF6186021E215AA100938366 /* Either.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
 		FF6186071E21617800938366 /* GoogleBooksApiRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleBooksApiRequest.swift; sourceTree = "<group>"; };
 		FF6186091E217D4400938366 /* BookshelfJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookshelfJson.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				FF6186021E215AA100938366 /* Either.swift */,
+				FF4A72AA1E23C1FA00BCA722 /* URLRequestExt.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				FFC685B61E20031900DDC778 /* BooksKind.swift in Sources */,
 				FFC685C21E20B71700DDC778 /* Id.swift in Sources */,
 				FF6186081E21617800938366 /* GoogleBooksApiRequest.swift in Sources */,
+				FF4A72AB1E23C1FA00BCA722 /* URLRequestExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
