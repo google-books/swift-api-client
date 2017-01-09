@@ -3,7 +3,7 @@ import Foundation
 private let OAUTH2_URL = URL(string: "https://accounts.google.com/o/oauth2")!
 private let BOOK_SCOPE_URL = URL(string: "https://www.googleapis.com/auth/books")!
 
-public struct GoogleApiRequests {
+public struct GoogleApiRequest {
     
     private init() {}
     
@@ -19,13 +19,25 @@ public struct GoogleApiRequests {
     }
     
     public static func token(redirectUrl: URL, clientId: String, clientSecret: String, code: String) -> URLRequest {
-        let params: [String:String] = [
+        return token(params: [
             "redirect_uri" : redirectUrl.absoluteString,
             "grant_type" : "authorization_code",
             "client_id" : clientId,
             "client_secret" : clientSecret,
             "code" : code
-        ]
+        ])
+    }
+    
+    public static func token(clientId: String, clientSecret: String, refreshToken: String) -> URLRequest {
+        return token(params: [
+            "grant_type" : "refresh_token",
+            "client_id" : clientId,
+            "client_secret" : clientSecret,
+            "refresh_token" : refreshToken
+        ])
+    }
+    
+    private static func token(params: [String:String]) -> URLRequest {
         let encoded = params
             .flatMap({ param in
                 guard

@@ -6,6 +6,11 @@ public struct GoogleApiToken {
     public let expiresIn: Int
     public let refreshToken: String
     public let tokenType: String
+    public let updatedAt: Date = Date()
+    
+    public func isExpired(at: NSDate = NSDate()) -> Bool {
+        return at.timeIntervalSince(updatedAt) > Double(expiresIn)
+    }
     
 }
 
