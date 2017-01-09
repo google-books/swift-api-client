@@ -5,6 +5,7 @@ private let BASE_URL: URL = URL(string: "https://www.googleapis.com/books/v1")!
 public protocol GoogleBooksApiRequest {
     
     associatedtype Result
+    var request: URLRequest? { get }
     
 }
 
@@ -31,6 +32,16 @@ extension GoogleBooksApiRequestType {
     
     var headers: [RequestHeader] {
         return []
+    }
+    
+    public var request: URLRequest? {
+        return URLRequest.create(
+            method: method,
+            url: url,
+            params: params,
+            headers: headers,
+            authInfo: authInfo
+        )
     }
     
 }

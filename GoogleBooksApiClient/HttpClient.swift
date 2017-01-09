@@ -16,15 +16,8 @@ final class HttpClient {
         self.session = session
     }
     
-    func execute(method: HttpMethod, url: URL, params: [RequestParameter]?, headers: [RequestHeader]?, completionHandler: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        components?.queryItems = params?.map({ URLQueryItem(name: $0.key, value: $0.value) })
-        var request = components?.url.map({ URLRequest(url: $0) })
-        request?.httpMethod = method.rawValue
-        for (key, value) in headers ?? [] {
-            request?.setValue(value, forHTTPHeaderField: key)
-        }
-        let task = session.dataTask(with: request!, completionHandler: { (data, response, error) in
+    func execute(request: URLRequest, completionHandler: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> URLSessionDataTask {
+        let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
             guard let response = response, let data = data else {
                 completionHandler(nil, nil, HttpClientError.unknown)
                 return
