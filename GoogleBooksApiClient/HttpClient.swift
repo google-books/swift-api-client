@@ -8,6 +8,7 @@ enum HttpMethod: String {
     case post = "POST"
 }
 
+// A Simple wrapper of URLSession.dataTask
 final class HttpClient {
     
     private let session: URLSession
@@ -28,7 +29,6 @@ final class HttpClient {
             }
             completionHandler(data, httpResponse, error)
         })
-        task.resume()
         return task
     }
     

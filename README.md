@@ -61,6 +61,7 @@ let task: URLSessionDataTask = client.invoke(
     onSuccess: { volumes in NSLog("\(volumes)" },
     onError: { error in NSLog("\(error)") }
 )
+task.resume()
 ```
 
 ### Mylibraly.Bookshlves
@@ -78,6 +79,7 @@ let task: URLSessionDataTask = client.invoke(
     onSuccess: { volumes in NSLog("\(volumes)" },
     onError: { error in NSLog("\(error)") }
 )
+task.resume()
 ```
 
 # License

@@ -17,7 +17,7 @@ class GoogleBooksApiClientTests: XCTestCase {
     }
     
     func testExample() {
-        _ = client.invoke(
+        let task1 = client.invoke(
             GoogleBooksApi.VolumeRequest.Get(id: Id("EFXMMgEACAAJ")),
             onSuccess: { volume in
                 NSLog("\(volume)")
@@ -26,7 +26,8 @@ class GoogleBooksApiClientTests: XCTestCase {
                 NSLog("\(error)")
             }
         )
-        _ = client.invoke(
+        task1.resume()
+        let task2 = client.invoke(
             GoogleBooksApi.VolumeRequest.List(query: "Google"),
             onSuccess: { volumes in
                 NSLog("\(volumes)")
@@ -35,7 +36,8 @@ class GoogleBooksApiClientTests: XCTestCase {
                 NSLog("\(error)")
             }
         )
-        _ = client.invoke(
+        task2.resume()
+        let task3 = client.invoke(
             GoogleBooksApi.BookshelfRequest.Get(id: BookshelfId.favorites, userId: "113452853140207249483"),
             onSuccess: { bookshelf in
                 NSLog("\(bookshelf)")
@@ -44,7 +46,8 @@ class GoogleBooksApiClientTests: XCTestCase {
                 NSLog("\(error)")
             }
         )
-        _ = client.invoke(
+        task3.resume()
+        let task4 = client.invoke(
             GoogleBooksApi.BookshelfRequest.List(userId: "113452853140207249483"),
             onSuccess: { bookshelves in
                 NSLog("\(bookshelves)")
@@ -53,7 +56,8 @@ class GoogleBooksApiClientTests: XCTestCase {
                 NSLog("\(error)")
             }
         )
-        _ = client.invoke(
+        task4.resume()
+        let task5 = client.invoke(
             GoogleBooksApi.BookshelvesVolumesRequest.List(userId: "113452853140207249483", shelf: BookshelfId.favorites),
             onSuccess: { volumes in
                 NSLog("\(volumes)")
@@ -62,6 +66,7 @@ class GoogleBooksApiClientTests: XCTestCase {
                 NSLog("\(error)")
             }
         )
+        task5.resume()
         sleep(4)
     }
     
