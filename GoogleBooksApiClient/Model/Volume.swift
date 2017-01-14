@@ -83,13 +83,13 @@ public struct Volume: Entity {
     
     public struct SaleInfo: ValueObject {
         
-        public let country: String
-        public let saleability: String
-        public let onSaleDate: Date
-        public let isEbook: Bool
-        public let listPrice: Price
-        public let retailPrice: Price
-        public let buyLink: URL
+        public let country: String?
+        public let saleability: String?
+        public let onSaleDate: Date?
+        public let isEbook: Bool?
+        public let listPrice: Price?
+        public let retailPrice: Price?
+        public let buyLink: URL?
         
         public struct Price {
             
@@ -102,16 +102,16 @@ public struct Volume: Entity {
     
     public struct AccessInfo: ValueObject {
         
-        public let country: String
-        public let viewability: String
-        public let embeddable: Bool
-        public let publicDomain: Bool
-        public let textToSpeechPermission: String
-        public let epub: Details
-        public let pdf: Details
-        public let webReaderLink: URL
-        public let accessViewStatus: String
-        public let downloadAccess: DownloadAccessRestriction
+        public let country: String?
+        public let viewability: String?
+        public let embeddable: Bool?
+        public let publicDomain: Bool?
+        public let textToSpeechPermission: String?
+        public let epub: Details?
+        public let pdf: Details?
+        public let webReaderLink: URL?
+        public let accessViewStatus: String?
+        public let downloadAccess: DownloadAccessRestriction?
         
         public struct Details: ValueObject {
             
@@ -125,7 +125,7 @@ public struct Volume: Entity {
 
     public struct SearchInfo: ValueObject {
         
-        public let textSnippet: String
+        public let textSnippet: String?
         
     }
     
@@ -206,6 +206,11 @@ public func ==(lhs: Volume.SaleInfo, rhs: Volume.SaleInfo) -> Bool {
 public func ==(lhs: Volume.SaleInfo.Price, rhs: Volume.SaleInfo.Price) -> Bool {
     return lhs.amount == rhs.amount
         && lhs.currencyCode == rhs.currencyCode
+}
+
+public func ==(lhs: Volume.SaleInfo.Price?, rhs: Volume.SaleInfo.Price?) -> Bool {
+    return lhs?.amount == rhs?.amount
+        && lhs?.currencyCode == rhs?.currencyCode
 }
 
 public func ==(lhs: Volume.AccessInfo, rhs: Volume.AccessInfo) -> Bool {

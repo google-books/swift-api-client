@@ -25,15 +25,23 @@ extension Volume: Deserializable {
         guard
             let volumeInfo = VolumeInfo.create(volumeInfoDict)
             else { return nil }
+        let userInfoDict = dict["userInfo"] as? [AnyHashable:Any]
+        let userInfo = userInfoDict.flatMap(Volume.UserInfo.create)
+        let saleInfoDict = dict["saleInfo"] as? [AnyHashable:Any]
+        let saleInfo = saleInfoDict.flatMap(Volume.SaleInfo.create)
+        let accessInfoDict = dict["accessInfo"] as? [AnyHashable:Any]
+        let accessInfo = accessInfoDict.flatMap(Volume.AccessInfo.create)
+        let searchInfoDict = dict["searchInfo"] as? [AnyHashable:Any]
+        let searchInfo = searchInfoDict.flatMap(Volume.SearchInfo.create)
         return Volume(
             id: Id(id),
             etag: etag,
             selfLink: selfLink,
             volumeInfo: volumeInfo,
-            userInfo: nil,
-            saleInfo: nil,
-            accessInfo: nil,
-            searchInfo: nil
+            userInfo: userInfo,
+            saleInfo: saleInfo,
+            accessInfo: accessInfo,
+            searchInfo: searchInfo
         )
     }
     
@@ -127,4 +135,84 @@ extension Volume.VolumeInfo.ImageLinks {
         )
     }
 
+}
+
+extension Volume.UserInfo {
+    
+    static func create(_ dict: [AnyHashable:Any]) -> Volume.UserInfo? {
+        guard let updated = dict["update"] as? Date else {
+            return nil
+        }
+        return Volume.UserInfo(
+            isPurchased: dict["isPurchased"] as? Bool,
+            isPreorderd: dict["isPreorderd"] as? Bool,
+            updated: updated
+        )
+    }
+    
+}
+
+extension Volume.SaleInfo {
+    
+    static func create(_ dict: [AnyHashable:Any]) -> Volume.SaleInfo? {
+        let listPriceDict = dict["listPrice"] as? [AnyHashable:Any]
+        let listPrice = listPriceDict.flatMap(Price.create)
+        let retailPriceDict = dict["retailPrice"] as? [AnyHashable:Any]
+        let retailPrice = retailPriceDict.flatMap(Price.create)
+        let buyLinkString = dict["buyLink"] as? String
+        let buyLink = buyLinkString.flatMap(URL.init)
+        return Volume.SaleInfo(
+            country: dict["country"] as? String,
+            saleability: dict["saleability"] as? String,
+            onSaleDate: dict["onSaleDate"] as? Date,
+            isEbook: dict["isEbook"] as? Bool,
+            listPrice: listPrice,
+            retailPrice: retailPrice,
+            buyLink: buyLink
+        )
+    }
+    
+}
+
+extension Volume.SaleInfo.Price {
+    
+    static func create(_ dict: [AnyHashable:Any]) -> Volume.SaleInfo.Price? {
+        guard
+            let amount = dict["amount"] as? Double,
+            let currencyCode = dict["currencyCode"] as? String
+            else { return nil }
+        return Volume.SaleInfo.Price(
+            amount: amount,
+            currencyCode: currencyCode
+        )
+    }
+    
+}
+
+extension Volume.AccessInfo {
+    
+    static func create(_ dict: [AnyHashable:Any]) -> Volume.AccessInfo? {
+        return Volume.AccessInfo(
+            country: dict["country"] as? String,
+            viewability: dict["viewability"] as? String,
+            embeddable: dict["embeddable"] as? Bool,
+            publicDomain: dict["publicDomain"] as? Bool,
+            textToSpeechPermission: dict["textToSpeechPermission"] as? String,
+            epub: nil,
+            pdf: nil,
+            webReaderLink: nil,
+            accessViewStatus: dict["accessViewStatus"] as? String,
+            downloadAccess: nil
+        )
+        
+    }
+    
+}
+
+extension Volume.SearchInfo {
+    
+    static func create(_ dict: [AnyHashable:Any]) -> Volume.SearchInfo? {
+        return Volume.SearchInfo(textSnippet: dict["textSnippet"] as? String)
+    }
+    
 }
