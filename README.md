@@ -58,7 +58,7 @@ let client = GoogleBooksApiClient(session: session)
 let req = GoogleBooksApi.VolumeRequest.List(query: "Google")
 let task: URLSessionDataTask = client.invoke(
     req,
-    onSuccess: { volumes in NSLog("\(volumes)" },
+    onSuccess: { volumes in NSLog("\(volumes)") },
     onError: { error in NSLog("\(error)") }
 )
 task.resume()
